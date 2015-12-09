@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+  <title>rightthandd</title>
+
+  <!-- ANGULAR IMPORTS -->
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/ui-router-master/release/angular-ui-router.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://code.angularjs.org/1.4.7/angular-animate.js"></script>
+
+	<!-- JS FILES -->
+	<script src="js/controller.js"></script>
+  <script src="js/directives.js"></script>
+  <link href='css/app.css' rel='stylesheet'>
+</head>
+
+<body class="container">
+  <div class="navbar">
+    <a class="brand" href="#">Quick Start</a>
+    <ul class="nav">
+      <li><a ui-sref="state1">State 1</a></li>
+      <li><a ui-sref="state2">State 2</a></li>
+      <li><a ui-sref="gallery">Gallery</a></li>
+    </ul>
+  </div>
+  <div class="dynamiccontent">
+    <div ui-view></div>
+  </div>         
+  
+  <!-- App Script -->
+  <script>
+  	/** MAIN ANGULAR VAR */
+    var myapp = angular.module('myapp', [
+      /**IMPORT DEPENDENCIES*/
+      'ui.router',
+      'ngAnimate',
+      /**FILE DEPENDENCIES*/ 
+      'appController', 
+      'slider.directive'
+    ]);
+
+    /** UI-ROUTING */
+    myapp.config(function($stateProvider, $urlRouterProvider){  
+      // For any unmatched url, send to /state1
+      //$urlRouterProvider.otherwise("/state1")
+      
+      $stateProvider
+        .state('state1', {
+            url: "/state1",
+            templateUrl: "partials/state1.html"
+        })
+        .state('state1.list', {
+          url: "/list",
+          templateUrl: "partials/state1.list.html",
+          controller: 'state1controller'
+        })
+        .state('gallery', {
+          url: "/gallery",
+          templateUrl: "partials/gallery.html",
+          controller: 'slidercontroller'
+        })
+        .state('state2', {
+          url: "/state2",
+          templateUrl: "partials/state2.html"
+        })
+        .state('state2.list', {
+          url: "/list",
+          templateUrl: "partials/state2.list.html",
+          controller: 'state2controller'
+        });
+    });
+  </script>
+</body>
+</html>
